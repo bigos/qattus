@@ -38,3 +38,7 @@
 !/app/assets/builds/.keep
 
 /node_modules
+
+elm-stuff
+
+.yarn 
