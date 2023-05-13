@@ -9,4 +9,10 @@
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
   %body
+    %div.nav
+      = link_to "Home", home_page_path
+      \|
+      = link_to "Texts", texts_path
+
+
     = yield
