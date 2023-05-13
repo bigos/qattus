@@ -1,2 +1,17 @@
 %h1 Home#page
 %p Find me in app/views/home/page.html.haml
+
+%div#elm
+  We have Elm error if you can read that
+
+= javascript_include_tag 'plugins/home', "data-turbo-track": "reload", defer: true
+:javascript
+  document.addEventListener('turbo:load', function () {
+    var enode = document.getElementById("elm")
+    if (enode) {
+      Elm.Main.init({
+        flags: 1,
+        node: enode
+      });
+    }
+  })
