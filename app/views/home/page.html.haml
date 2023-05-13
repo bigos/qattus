@@ -10,15 +10,11 @@
   function loadElm() {
     var enode = document.getElementById("elm")
       if (enode) {
-        //window.elmhome=true;
-
         Elm.Main.init({
         flags: 1,
         node: enode
       });
     }
   }
-
-  // alert(window.elmhome);
 
   document.addEventListener('turbo:load', loadElm)
