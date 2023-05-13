@@ -16,12 +16,23 @@ main =
         }
 
 
-init () =
-    ( { cnt = 0 }, Cmd.none )
+init : Flags -> ( Model, Cmd msg )
+init flags =
+    ( { flags = flags
+      , cnt = 0
+      }
+    , Cmd.none
+    )
+
+
+type alias Flags =
+    { a : Int, be : String }
 
 
 type alias Model =
-    { cnt : Int }
+    { flags : Flags
+    , cnt : Int
+    }
 
 
 type alias Text =
@@ -51,6 +62,7 @@ view model =
         , span [ class <| counterClasses model ] [ text (String.fromInt model.cnt) ]
         , button [ onClick Increment ] [ text "+" ]
         , hr [] []
+        , div [] [ text (Debug.toString model) ]
         ]
 
 
