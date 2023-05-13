@@ -6,12 +6,14 @@
     Loading the widget...
 
 = javascript_include_tag 'plugins/home', "data-turbo-eval": "false", defer: true
+- flag_data = {a: 1, be: 'two'}
 :javascript
   function loadElm() {
     var enode = document.getElementById("elm")
       if (enode) {
         Elm.Main.init({
-        flags: 1,
+        flags:
+        #{JSON.generate flag_data},
         node: enode
       });
     }

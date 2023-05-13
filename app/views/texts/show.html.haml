@@ -8,7 +8,8 @@
   = @text.link
 %p
   %b Body:
-  = @text.body
+  %pre
+    = @text.body
 
 = link_to 'Edit', edit_text_path(@text)
 \|
