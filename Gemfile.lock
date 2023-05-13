@@ -93,7 +93,6 @@ GEM
     diff-lcs (1.5.0)
     erubi (1.12.0)
     erubis (2.7.0)
-    ffi (1.15.5)
     globalid (1.1.0)
       activesupport (>= 5.0)
     haml (6.1.1)
@@ -222,14 +221,6 @@ GEM
     ruby_parser (3.20.0)
       sexp_processor (~> 4.16)
     rubyzip (2.3.2)
-    sassc (2.4.0)
-      ffi (~> 1.9)
-    sassc-rails (2.1.2)
-      railties (>= 4.0.0)
-      sassc (>= 2.0)
-      sprockets (> 3.0)
-      sprockets-rails
-      tilt
     selenium-webdriver (4.9.1)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
@@ -289,7 +280,6 @@ DEPENDENCIES
   rails (~> 7.0.4, >= 7.0.4.3)
   rspec-rails (~> 6.0.0)
   rubocop
-  sassc-rails
   selenium-webdriver
   sprockets-rails
   sqlite3 (~> 1.4)

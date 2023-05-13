@@ -2,16 +2,23 @@
 %p Find me in app/views/home/page.html.haml
 
 %div#elm
-  We have Elm error if you can read that
+  %span.elm-error
+    If you can read that we have an elm error,
 
-= javascript_include_tag 'plugins/home', "data-turbo-track": "reload", defer: true
+= javascript_include_tag 'plugins/home', "data-turbo-eval": "false", defer: true
 :javascript
-  document.addEventListener('turbo:load', function () {
+  function loadElm() {
     var enode = document.getElementById("elm")
-    if (enode) {
-      Elm.Main.init({
+      if (enode) {
+        //window.elmhome=true;
+
+        Elm.Main.init({
         flags: 1,
         node: enode
       });
     }
-  })
+  }
+
+  // alert(window.elmhome);
+
+  document.addEventListener('turbo:load', loadElm)
