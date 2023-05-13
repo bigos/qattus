@@ -1,0 +1,36 @@
+* README
+
+This README would normally document whatever steps are necessary to get the
+application up and running.
+
+Things you may want to cover:
+
+** Ruby version
+3.2.2
+
+** System dependencies
+Elm
+
+** Configuration
+In the manifest file we specify location of our Elm file compiled to JS
+https://github.com/bigos/qattus/blob/f081d6630da2164d98c9b09f3c235e44b2681a67/app/assets/config/manifest.js#L4
+
+And the JS file is here
+https://github.com/bigos/qattus/blob/f081d6630da2164d98c9b09f3c235e44b2681a67/app/assets/javascript/plugins/home.js#L1
+
+It is invoked from here
+https://github.com/bigos/qattus/blob/f081d6630da2164d98c9b09f3c235e44b2681a67/app/views/home/page.html.haml#L8
+please note the way to suppress multiple loading
+https://github.com/bigos/qattus/blob/f081d6630da2164d98c9b09f3c235e44b2681a67/app/views/home/page.html.haml#L21
+
+we also need to fix delete confirmation for turbo
+https://github.com/bigos/qattus/blob/f081d6630da2164d98c9b09f3c235e44b2681a67/app/views/texts/index.html.haml#LL21C19-L21C19
+
+** Database creation
+Trivial Sqlite3
+
+** Database initialization
+Trivial Sqlite3
+
+** How to run the test suite
+No tests yet
