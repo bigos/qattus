@@ -9,7 +9,7 @@ class Text < ApplicationRecord
 
   def counts
     hash = {}
-    words.each do |word|
+    words.sort.reverse.each do |word|
       if hash[word].nil?
         hash[word] = 0
       end
