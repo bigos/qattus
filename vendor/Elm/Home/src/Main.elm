@@ -5,7 +5,7 @@ import Html exposing (Html, button, div, hr, span, text)
 import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
 import Http
-import Json.Decode exposing (Decoder, field, int, map3, string)
+import Json.Decode exposing (Decoder, field, int, list, map3, map4, map6, map7, string)
 import List
 
 
@@ -24,10 +24,7 @@ init flags =
       , cnt = 0
       , result = ""
       }
-    , Http.get
-        { url = "http://localhost:3000/texts.json"
-        , expect = Http.expectString GotTextString
-        }
+    , getText
     )
 
 
@@ -43,9 +40,12 @@ type alias Model =
 
 
 type alias Text =
-    { id : String
+    { id : Int
     , link : String
+    , title : String
     , body : String
+    , created_at : String
+    , updated_at : String
     }
 
 
@@ -53,7 +53,7 @@ type Msg
     = Increment
     | Decrement
     | GotTextString (Result Http.Error String)
-    | GotText (Result Http.Error Text)
+    | GotText (Result Http.Error (List Text))
 
 
 update msg model =
@@ -75,7 +75,7 @@ update msg model =
                     ( { model | result = Debug.toString fullText }, Cmd.none )
 
                 Err err ->
-                    ( { model | result = Debug.toString err }, Cmd.none )
+                    ( { model | result = "got text error " ++ Debug.toString err }, Cmd.none )
 
         GotTextString result ->
             case result of
@@ -83,7 +83,7 @@ update msg model =
                     ( { model | result = fullText }, Cmd.none )
 
                 Err err ->
-                    ( { model | result = Debug.toString err }, Cmd.none )
+                    ( { model | result = "got string of text error" ++ Debug.toString err }, Cmd.none )
 
 
 host =
@@ -91,15 +91,27 @@ host =
 
 
 getTexts =
-    Http.get { url = host ++ "/texts.json", expect = Http.expectJson GotText gotTextDecoder }
+    Http.get { url = host ++ "/texts.json", expect = Http.expectJson GotText gotTextsDecoder }
+
+
+getText =
+    Http.get { url = host ++ "/texts.json", expect = Http.expectString GotTextString }
+
+
+gotTextsDecoder : Decoder (List Text)
+gotTextsDecoder =
+    list gotTextDecoder
 
 
 gotTextDecoder : Decoder Text
 gotTextDecoder =
-    map3 Text
-        (field "id" string)
-        (field "link" string)
+    map6 Text
+        (field "id" int)
+        (field "title" string)
         (field "body" string)
+        (field "link" string)
+        (field "created_at" string)
+        (field "updated_at" string)
 
 
 view model =

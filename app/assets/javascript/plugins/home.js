@@ -6118,14 +6118,16 @@ var $elm$http$Http$get = function (r) {
 	return $elm$http$Http$request(
 		{body: $elm$http$Http$emptyBody, expect: r.expect, headers: _List_Nil, method: 'GET', timeout: $elm$core$Maybe$Nothing, tracker: $elm$core$Maybe$Nothing, url: r.url});
 };
+var $author$project$Main$host = 'http://localhost:3000';
+var $author$project$Main$getText = $elm$http$Http$get(
+	{
+		expect: $elm$http$Http$expectString($author$project$Main$GotTextString),
+		url: $author$project$Main$host + '/texts.json'
+	});
 var $author$project$Main$init = function (flags) {
 	return _Utils_Tuple2(
 		{cnt: 0, flags: flags, result: ''},
-		$elm$http$Http$get(
-			{
-				expect: $elm$http$Http$expectString($author$project$Main$GotTextString),
-				url: 'http://localhost:3000/texts.json'
-			}));
+		$author$project$Main$getText);
 };
 var $elm$json$Json$Decode$int = _Json_decodeInt;
 var $elm$json$Json$Decode$string = _Json_decodeString;
@@ -6151,21 +6153,25 @@ var $elm$http$Http$expectJson = F2(
 						A2($elm$json$Json$Decode$decodeString, decoder, string));
 				}));
 	});
-var $author$project$Main$Text = F3(
-	function (id, link, body) {
-		return {body: body, id: id, link: link};
+var $author$project$Main$Text = F6(
+	function (id, link, title, body, created_at, updated_at) {
+		return {body: body, created_at: created_at, id: id, link: link, title: title, updated_at: updated_at};
 	});
-var $elm$json$Json$Decode$map3 = _Json_map3;
-var $author$project$Main$gotTextDecoder = A4(
-	$elm$json$Json$Decode$map3,
+var $elm$json$Json$Decode$map6 = _Json_map6;
+var $author$project$Main$gotTextDecoder = A7(
+	$elm$json$Json$Decode$map6,
 	$author$project$Main$Text,
-	A2($elm$json$Json$Decode$field, 'id', $elm$json$Json$Decode$string),
+	A2($elm$json$Json$Decode$field, 'id', $elm$json$Json$Decode$int),
+	A2($elm$json$Json$Decode$field, 'title', $elm$json$Json$Decode$string),
+	A2($elm$json$Json$Decode$field, 'body', $elm$json$Json$Decode$string),
 	A2($elm$json$Json$Decode$field, 'link', $elm$json$Json$Decode$string),
-	A2($elm$json$Json$Decode$field, 'body', $elm$json$Json$Decode$string));
-var $author$project$Main$host = 'http://localhost:3000';
+	A2($elm$json$Json$Decode$field, 'created_at', $elm$json$Json$Decode$string),
+	A2($elm$json$Json$Decode$field, 'updated_at', $elm$json$Json$Decode$string));
+var $elm$json$Json$Decode$list = _Json_decodeList;
+var $author$project$Main$gotTextsDecoder = $elm$json$Json$Decode$list($author$project$Main$gotTextDecoder);
 var $author$project$Main$getTexts = $elm$http$Http$get(
 	{
-		expect: A2($elm$http$Http$expectJson, $author$project$Main$GotText, $author$project$Main$gotTextDecoder),
+		expect: A2($elm$http$Http$expectJson, $author$project$Main$GotText, $author$project$Main$gotTextsDecoder),
 		url: $author$project$Main$host + '/texts.json'
 	});
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
@@ -6203,7 +6209,7 @@ var $author$project$Main$update = F2(
 						_Utils_update(
 							model,
 							{
-								result: $elm$core$Debug$toString(err)
+								result: 'got text error ' + $elm$core$Debug$toString(err)
 							}),
 						$elm$core$Platform$Cmd$none);
 				}
@@ -6222,7 +6228,7 @@ var $author$project$Main$update = F2(
 						_Utils_update(
 							model,
 							{
-								result: $elm$core$Debug$toString(err)
+								result: 'got string of text error' + $elm$core$Debug$toString(err)
 							}),
 						$elm$core$Platform$Cmd$none);
 				}
