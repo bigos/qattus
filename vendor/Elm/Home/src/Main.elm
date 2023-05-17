@@ -72,7 +72,8 @@ update msg model =
         GotText result ->
             case result of
                 Ok fullText ->
-                    ( { model | result = Debug.toString fullText }, Cmd.none )
+                    Debug.log ("got the correctly parsed json " ++ Debug.toString fullText)
+                        ( { model | result = Debug.toString fullText }, Cmd.none )
 
                 Err err ->
                     ( { model | result = "got text error " ++ Debug.toString err }, Cmd.none )

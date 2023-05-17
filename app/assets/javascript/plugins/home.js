@@ -6174,6 +6174,7 @@ var $author$project$Main$getTexts = $elm$http$Http$get(
 		expect: A2($elm$http$Http$expectJson, $author$project$Main$GotText, $author$project$Main$gotTextsDecoder),
 		url: $author$project$Main$host + '/texts.json'
 	});
+var $elm$core$Debug$log = _Debug_log;
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $elm$core$Debug$toString = _Debug_toString;
@@ -6196,13 +6197,16 @@ var $author$project$Main$update = F2(
 				var result = msg.a;
 				if (result.$ === 'Ok') {
 					var fullText = result.a;
-					return _Utils_Tuple2(
-						_Utils_update(
-							model,
-							{
-								result: $elm$core$Debug$toString(fullText)
-							}),
-						$elm$core$Platform$Cmd$none);
+					return A2(
+						$elm$core$Debug$log,
+						'got the correctly parsed json ' + $elm$core$Debug$toString(fullText),
+						_Utils_Tuple2(
+							_Utils_update(
+								model,
+								{
+									result: $elm$core$Debug$toString(fullText)
+								}),
+							$elm$core$Platform$Cmd$none));
 				} else {
 					var err = result.a;
 					return _Utils_Tuple2(
