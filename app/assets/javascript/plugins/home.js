@@ -6133,11 +6133,14 @@ var $elm$json$Json$Decode$int = _Json_decodeInt;
 var $elm$json$Json$Decode$string = _Json_decodeString;
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
-var $author$project$Main$subscriptions = function (model) {
+var $author$project$Main$subscriptions = function (_v0) {
 	return $elm$core$Platform$Sub$none;
 };
-var $author$project$Main$GotText = function (a) {
-	return {$: 'GotText', a: a};
+var $author$project$Main$GotTextRecord = function (a) {
+	return {$: 'GotTextRecord', a: a};
+};
+var $elm$core$String$concat = function (strings) {
+	return A2($elm$core$String$join, '', strings);
 };
 var $elm$json$Json$Decode$decodeString = _Json_runOnString;
 var $elm$http$Http$expectJson = F2(
@@ -6167,11 +6170,26 @@ var $author$project$Main$gotTextDecoder = A7(
 	A2($elm$json$Json$Decode$field, 'link', $elm$json$Json$Decode$string),
 	A2($elm$json$Json$Decode$field, 'created_at', $elm$json$Json$Decode$string),
 	A2($elm$json$Json$Decode$field, 'updated_at', $elm$json$Json$Decode$string));
+var $author$project$Main$getTextRecord = function () {
+	var id = '3';
+	return $elm$http$Http$get(
+		{
+			expect: A2($elm$http$Http$expectJson, $author$project$Main$GotTextRecord, $author$project$Main$gotTextDecoder),
+			url: _Utils_ap(
+				$author$project$Main$host,
+				$elm$core$String$concat(
+					_List_fromArray(
+						['/texts/', id, '.json'])))
+		});
+}();
+var $author$project$Main$GotTextList = function (a) {
+	return {$: 'GotTextList', a: a};
+};
 var $elm$json$Json$Decode$list = _Json_decodeList;
 var $author$project$Main$gotTextsDecoder = $elm$json$Json$Decode$list($author$project$Main$gotTextDecoder);
-var $author$project$Main$getTexts = $elm$http$Http$get(
+var $author$project$Main$getTextsList = $elm$http$Http$get(
 	{
-		expect: A2($elm$http$Http$expectJson, $author$project$Main$GotText, $author$project$Main$gotTextsDecoder),
+		expect: A2($elm$http$Http$expectJson, $author$project$Main$GotTextList, $author$project$Main$gotTextsDecoder),
 		url: $author$project$Main$host + '/texts.json'
 	});
 var $elm$core$Debug$log = _Debug_log;
@@ -6186,20 +6204,20 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{cnt: model.cnt + 1, result: ''}),
-					$elm$core$Platform$Cmd$none);
+					$author$project$Main$getTextRecord);
 			case 'Decrement':
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{cnt: model.cnt - 1}),
-					$author$project$Main$getTexts);
-			case 'GotText':
+					$author$project$Main$getTextsList);
+			case 'GotTextRecord':
 				var result = msg.a;
 				if (result.$ === 'Ok') {
 					var fullText = result.a;
 					return A2(
 						$elm$core$Debug$log,
-						'got the correctly parsed json ' + $elm$core$Debug$toString(fullText),
+						'got the correctly parsed json object' + $elm$core$Debug$toString(fullText),
 						_Utils_Tuple2(
 							_Utils_update(
 								model,
@@ -6214,6 +6232,30 @@ var $author$project$Main$update = F2(
 							model,
 							{
 								result: 'got text error ' + $elm$core$Debug$toString(err)
+							}),
+						$elm$core$Platform$Cmd$none);
+				}
+			case 'GotTextList':
+				var result = msg.a;
+				if (result.$ === 'Ok') {
+					var fullText = result.a;
+					return A2(
+						$elm$core$Debug$log,
+						'got the correctly parsed json list ' + $elm$core$Debug$toString(fullText),
+						_Utils_Tuple2(
+							_Utils_update(
+								model,
+								{
+									result: $elm$core$Debug$toString(fullText)
+								}),
+							$elm$core$Platform$Cmd$none));
+				} else {
+					var err = result.a;
+					return _Utils_Tuple2(
+						_Utils_update(
+							model,
+							{
+								result: 'got text list error ' + $elm$core$Debug$toString(err)
 							}),
 						$elm$core$Platform$Cmd$none);
 				}

@@ -52,7 +52,8 @@ type Msg
     = Increment
     | Decrement
     | GotTextString (Result Http.Error String)
-    | GotText (Result Http.Error (List Text))
+    | GotTextList (Result Http.Error (List Text))
+    | GotTextRecord (Result Http.Error Text)
 
 
 update msg model =
@@ -62,20 +63,29 @@ update msg model =
                 | cnt = model.cnt + 1
                 , result = ""
               }
-            , Cmd.none
+            , getTextRecord
             )
 
         Decrement ->
-            ( { model | cnt = model.cnt - 1 }, getTexts )
+            ( { model | cnt = model.cnt - 1 }, getTextsList )
 
-        GotText result ->
+        GotTextRecord result ->
             case result of
                 Ok fullText ->
-                    Debug.log ("got the correctly parsed json " ++ Debug.toString fullText)
+                    Debug.log ("got the correctly parsed json object" ++ Debug.toString fullText)
                         ( { model | result = Debug.toString fullText }, Cmd.none )
 
                 Err err ->
                     ( { model | result = "got text error " ++ Debug.toString err }, Cmd.none )
+
+        GotTextList result ->
+            case result of
+                Ok fullText ->
+                    Debug.log ("got the correctly parsed json list " ++ Debug.toString fullText)
+                        ( { model | result = Debug.toString fullText }, Cmd.none )
+
+                Err err ->
+                    ( { model | result = "got text list error " ++ Debug.toString err }, Cmd.none )
 
         GotTextString result ->
             case result of
@@ -90,8 +100,25 @@ host =
     "http://localhost:3000"
 
 
-getTexts =
-    Http.get { url = host ++ "/texts.json", expect = Http.expectJson GotText gotTextsDecoder }
+getTextsList =
+    Http.get { url = host ++ "/texts.json", expect = Http.expectJson GotTextList gotTextsDecoder }
+
+
+getTextRecord =
+    let
+        id =
+            "3"
+    in
+    Http.get
+        { url =
+            host
+                ++ String.concat
+                    [ "/texts/"
+                    , id
+                    , ".json"
+                    ]
+        , expect = Http.expectJson GotTextRecord gotTextDecoder
+        }
 
 
 getText =
