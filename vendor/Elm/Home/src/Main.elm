@@ -1,12 +1,11 @@
 module Main exposing (..)
 
 import Browser
-import Html exposing (Html, button, div, hr, span, text)
+import Html exposing (button, div, hr, span, text)
 import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
 import Http
-import Json.Decode exposing (Decoder, field, int, list, map3, map4, map6, map7, string)
-import List
+import Json.Decode exposing (Decoder, field, int, list, map6, string)
 
 
 main =
@@ -143,5 +142,5 @@ counterClasses model =
     counterClasses2
 
 
-subscriptions model =
+subscriptions _ =
     Sub.none
