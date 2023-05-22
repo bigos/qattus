@@ -135,8 +135,8 @@ gotTextDecoder =
     map6 Text
         (field "id" int)
         (field "title" string)
-        (field "body" string)
         (field "link" string)
+        (field "body" string)
         (field "created_at" string)
         (field "updated_at" string)
 
