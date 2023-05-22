@@ -42,3 +42,32 @@ GET http://localhost:3000/texts.json
 #+begin_src restclient
 GET http://localhost:3000/texts/3.json
 #+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "id": 3,
+  "title": "Jienh għandi qattus ħelu",
+  "link": "https://www.youtube.com/watch?v=vG4smHtkzAY",
+  "body": "Jienh għandi qattus ħelu\nu ngħidlu, \"Ejja s'hawn.\"\nU jiġi jiġri ħdejja\nu jgħidli, \"Mjaw. mjaw, mjaw.\"\n\nNixtrilu ftit lampuki\nu ngħidlu, \"Kulhom dawn\"\nu jibda jibla' l-ikel\nu jgħidli, \"Mjaw. mjaw, mjaw.\"\n\nNimlielu l-banju bl-ilma\nu ngħidlu, \"Inħassel hawn\"\nU jitlaq jiġri 'l barra\nu jgħidli, \"Ċaw, ċaw ċaw\" ",
+  "created_at": "2023-05-13T21:49:37.489Z",
+  "updated_at": "2023-05-13T21:56:51.830Z",
+  "url": "http://localhost:3000/texts/3.json"
+}
+// GET http://localhost:3000/texts/3.json
+// HTTP/1.1 200 OK
+// X-Frame-Options: SAMEORIGIN
+// X-XSS-Protection: 0
+// X-Content-Type-Options: nosniff
+// X-Download-Options: noopen
+// X-Permitted-Cross-Domain-Policies: none
+// Referrer-Policy: strict-origin-when-cross-origin
+// Content-Type: application/json; charset=utf-8
+// ETag: W/"be747226ffcf63277ef92b6eb41fb480"
+// Cache-Control: max-age=0, private, must-revalidate
+// X-Request-Id: ab99fbab-4f2f-41f0-a99f-da578459e983
+// X-Runtime: 0.007830
+// Server-Timing: start_processing.action_controller;dur=0.20, sql.active_record;dur=1.00, instantiation.active_record;dur=0.05, render_partial.action_view;dur=0.55, render_template.action_view;dur=1.07, process_action.action_controller;dur=3.54
+// Transfer-Encoding: chunked
+// Request duration: 0.011549s
+#+END_SRC

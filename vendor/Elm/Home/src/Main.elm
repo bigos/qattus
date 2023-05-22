@@ -5,7 +5,8 @@ import Html exposing (button, div, hr, span, text)
 import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
 import Http
-import Json.Decode exposing (Decoder, field, int, list, map6, string)
+import Json.Decode as Decode exposing (Decoder, field, int, list, map6, string)
+import Json.Decode.Pipeline exposing (optional, required)
 
 
 main =
@@ -40,8 +41,8 @@ type alias Model =
 
 type alias Text =
     { id : Int
-    , link : String
     , title : String
+    , link : String
     , body : String
     , created_at : String
     , updated_at : String
@@ -132,13 +133,13 @@ gotTextsDecoder =
 
 gotTextDecoder : Decoder Text
 gotTextDecoder =
-    map6 Text
-        (field "id" int)
-        (field "title" string)
-        (field "link" string)
-        (field "body" string)
-        (field "created_at" string)
-        (field "updated_at" string)
+    Decode.succeed Text
+        |> required "id" int
+        |> required "title" string
+        |> required "link" string
+        |> required "body" string
+        |> required "created_at" string
+        |> required "updated_at" string
 
 
 view model =

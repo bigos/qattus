@@ -6157,19 +6157,42 @@ var $elm$http$Http$expectJson = F2(
 				}));
 	});
 var $author$project$Main$Text = F6(
-	function (id, link, title, body, created_at, updated_at) {
+	function (id, title, link, body, created_at, updated_at) {
 		return {body: body, created_at: created_at, id: id, link: link, title: title, updated_at: updated_at};
 	});
-var $elm$json$Json$Decode$map6 = _Json_map6;
-var $author$project$Main$gotTextDecoder = A7(
-	$elm$json$Json$Decode$map6,
-	$author$project$Main$Text,
-	A2($elm$json$Json$Decode$field, 'id', $elm$json$Json$Decode$int),
-	A2($elm$json$Json$Decode$field, 'title', $elm$json$Json$Decode$string),
-	A2($elm$json$Json$Decode$field, 'body', $elm$json$Json$Decode$string),
-	A2($elm$json$Json$Decode$field, 'link', $elm$json$Json$Decode$string),
-	A2($elm$json$Json$Decode$field, 'created_at', $elm$json$Json$Decode$string),
-	A2($elm$json$Json$Decode$field, 'updated_at', $elm$json$Json$Decode$string));
+var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$custom = $elm$json$Json$Decode$map2($elm$core$Basics$apR);
+var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required = F3(
+	function (key, valDecoder, decoder) {
+		return A2(
+			$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$custom,
+			A2($elm$json$Json$Decode$field, key, valDecoder),
+			decoder);
+	});
+var $author$project$Main$gotTextDecoder = A3(
+	$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
+	'updated_at',
+	$elm$json$Json$Decode$string,
+	A3(
+		$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
+		'created_at',
+		$elm$json$Json$Decode$string,
+		A3(
+			$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
+			'body',
+			$elm$json$Json$Decode$string,
+			A3(
+				$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
+				'link',
+				$elm$json$Json$Decode$string,
+				A3(
+					$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
+					'title',
+					$elm$json$Json$Decode$string,
+					A3(
+						$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
+						'id',
+						$elm$json$Json$Decode$int,
+						$elm$json$Json$Decode$succeed($author$project$Main$Text)))))));
 var $author$project$Main$getTextRecord = function () {
 	var id = '3';
 	return $elm$http$Http$get(
