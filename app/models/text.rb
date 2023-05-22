@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: texts
+#
+#  id         :integer          not null, primary key
+#  title      :string
+#  link       :string
+#  body       :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 class Text < ApplicationRecord
   def words
     body.split(',').join(' ') # .split('.').join(' ').split(' ').collect(&:downcase)
