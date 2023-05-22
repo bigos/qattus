@@ -34,3 +34,11 @@ Trivial Sqlite3
 
 ** How to run the test suite
 No tests yet
+
+#+begin_src restclient
+GET http://localhost:3000/texts.json
+#+end_src
+
+#+begin_src restclient
+GET http://localhost:3000/texts/3.json
+#+end_src
