@@ -163,11 +163,8 @@ counterClasses model =
 
             else
                 "negative"
-
-        counterClasses2 =
-            String.join " " [ "counter", counterColorClass ]
     in
-    counterClasses2
+    String.join " " [ "counter", counterColorClass ]
 
 
 subscriptions _ =
