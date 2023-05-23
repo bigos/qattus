@@ -5,8 +5,8 @@ import Html exposing (button, div, hr, span, text)
 import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
 import Http
-import Json.Decode as Decode exposing (Decoder, field, int, list, map6, string)
-import Json.Decode.Pipeline exposing (optional, required)
+import Json.Decode as Decode exposing (Decoder, int, list, string)
+import Json.Decode.Pipeline exposing (required)
 
 
 main =
