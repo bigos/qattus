@@ -1,6 +1,10 @@
 module Main exposing (..)
 
 import Browser
+import Element exposing (Element, alignRight, centerY, el, fill, padding, rgb255, row, spacing, text, width)
+import Element.Background as Background
+import Element.Border as Border
+import Element.Font as Font
 import Html exposing (Html, button, div, hr, span, text)
 import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
@@ -152,12 +156,34 @@ gotTextDecoder =
 view : Model -> Html Msg
 view model =
     div []
-        [ button [ onClick Decrement ] [ text "-" ]
-        , span [ class <| counterClasses model ] [ text (String.fromInt model.cnt) ]
-        , button [ onClick Increment ] [ text "+" ]
+        [ button [ onClick Decrement ] [ Html.text "-" ]
+        , span [ class <| counterClasses model ] [ Html.text (String.fromInt model.cnt) ]
+        , button [ onClick Increment ] [ Html.text "+" ]
         , hr [] []
-        , div [] [ text (Debug.toString model) ]
+        , Element.layout [] myRowOfStuff
+        , hr [] []
+        , div [] [ Html.text (Debug.toString model) ]
         ]
+
+
+myRowOfStuff : Element msg
+myRowOfStuff =
+    row [ width fill, centerY, spacing 30 ]
+        [ myElement
+        , myElement
+        , el [ alignRight ] myElement
+        ]
+
+
+myElement : Element msg
+myElement =
+    el
+        [ Background.color (rgb255 240 0 245)
+        , Font.color (rgb255 255 255 255)
+        , Border.rounded 3
+        , padding 30
+        ]
+        (Element.text "stylish!")
 
 
 counterClasses : Model -> String
