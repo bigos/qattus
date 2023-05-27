@@ -169,21 +169,21 @@ view model =
 myRowOfStuff : Element msg
 myRowOfStuff =
     row [ width fill, centerY, spacing 30 ]
-        [ myElement
-        , myElement
-        , el [ alignRight ] myElement
+        [ myElement "one"
+        , myElement "two"
+        , el [ alignRight ] (myElement "three")
         ]
 
 
-myElement : Element msg
-myElement =
+myElement : String -> Element msg
+myElement str =
     el
-        [ Background.color (rgb255 240 0 245)
+        [ Background.color (rgb255 40 0 245)
         , Font.color (rgb255 255 255 255)
         , Border.rounded 3
         , padding 30
         ]
-        (Element.text "stylish!")
+        (Element.text str)
 
 
 counterClasses : Model -> String
