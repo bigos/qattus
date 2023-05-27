@@ -3,9 +3,7 @@
 
 %div#elm
   %span.elm-error
-    Loading the widget...
-    %br
-    = link_to 'Click here if you can read it', '#'
+    = 'Please reload if you can read it'
 
 = javascript_include_tag 'plugins/home', "data-turbo-eval": "false"
 - flag_data = {a: 1, be: 'two'}
@@ -22,5 +20,6 @@
     }
   }
 
-  document.addEventListener('turbo:load', loadElm)
+  document.addEventListener("DOMContentLoaded", loadElm)
   document.addEventListener('turbo:before-render', loadElm)
+  document.addEventListener('turbo:load', loadElm)
