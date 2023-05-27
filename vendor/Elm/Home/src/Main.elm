@@ -7,6 +7,7 @@ import Html.Events exposing (onClick)
 import Http
 import Json.Decode as Decode exposing (Decoder, int, list, string)
 import Json.Decode.Pipeline exposing (required)
+import String.Interpolate exposing (..)
 
 
 main =
@@ -105,7 +106,11 @@ host =
 
 getTextsList : Cmd Msg
 getTextsList =
-    Http.get { url = host ++ "/texts.json", expect = Http.expectJson GotTextList gotTextsDecoder }
+    Http.get
+        { url =
+            interpolate "{0}/texts.json" [ host ]
+        , expect = Http.expectJson GotTextList gotTextsDecoder
+        }
 
 
 getTextRecord : Cmd Msg
@@ -115,20 +120,17 @@ getTextRecord =
             "3"
     in
     Http.get
-        { url =
-            String.concat
-                [ host
-                , "/texts/"
-                , id
-                , ".json"
-                ]
+        { url = interpolate "{0}/texts/{1}.json" [ host, id ]
         , expect = Http.expectJson GotTextRecord gotTextDecoder
         }
 
 
 getText : Cmd Msg
 getText =
-    Http.get { url = host ++ "/texts.json", expect = Http.expectString GotTextString }
+    Http.get
+        { url = interpolate "{0}/texts.json" [ host ]
+        , expect = Http.expectString GotTextString
+        }
 
 
 gotTextsDecoder : Decoder (List Text)
