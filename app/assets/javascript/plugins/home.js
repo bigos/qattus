@@ -6319,12 +6319,11 @@ var $elm$core$Basics$ge = _Utils_ge;
 var $author$project$Main$counterClasses = function (model) {
 	var counterValue = model.cnt;
 	var counterColorClass = (counterValue >= 0) ? 'positive' : 'negative';
-	var counterClasses2 = A2(
+	return A2(
 		$elm$core$String$join,
 		' ',
 		_List_fromArray(
 			['counter', counterColorClass]));
-	return counterClasses2;
 };
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$hr = _VirtualDom_node('hr');

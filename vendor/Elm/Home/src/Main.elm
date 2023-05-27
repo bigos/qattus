@@ -1,7 +1,7 @@
 module Main exposing (..)
 
 import Browser
-import Html exposing (button, div, hr, span, text)
+import Html exposing (Html, button, div, hr, span, text)
 import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
 import Http
@@ -57,6 +57,7 @@ type Msg
     | GotTextRecord (Result Http.Error Text)
 
 
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Increment ->
@@ -97,14 +98,17 @@ update msg model =
                     ( { model | result = "got string of text error" ++ Debug.toString err }, Cmd.none )
 
 
+host : String
 host =
     "http://localhost:3000"
 
 
+getTextsList : Cmd Msg
 getTextsList =
     Http.get { url = host ++ "/texts.json", expect = Http.expectJson GotTextList gotTextsDecoder }
 
 
+getTextRecord : Cmd Msg
 getTextRecord =
     let
         id =
@@ -122,6 +126,7 @@ getTextRecord =
         }
 
 
+getText : Cmd Msg
 getText =
     Http.get { url = host ++ "/texts.json", expect = Http.expectString GotTextString }
 
@@ -142,6 +147,7 @@ gotTextDecoder =
         |> required "updated_at" string
 
 
+view : Model -> Html Msg
 view model =
     div []
         [ button [ onClick Decrement ] [ text "-" ]
@@ -152,6 +158,7 @@ view model =
         ]
 
 
+counterClasses : Model -> String
 counterClasses model =
     let
         counterValue =
