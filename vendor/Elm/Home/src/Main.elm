@@ -116,12 +116,12 @@ getTextRecord =
     in
     Http.get
         { url =
-            host
-                ++ String.concat
-                    [ "/texts/"
-                    , id
-                    , ".json"
-                    ]
+            String.concat
+                [ host
+                , "/texts/"
+                , id
+                , ".json"
+                ]
         , expect = Http.expectJson GotTextRecord gotTextDecoder
         }
 
