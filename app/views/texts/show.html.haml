@@ -21,5 +21,7 @@
 
 %pre
   - @text.counts.each  do |pair|
-    = pair
+    = pair.first
+    = ' - '
+    = pair.second
     = "\n"
