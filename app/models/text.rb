@@ -11,10 +11,11 @@
 #
 class Text < ApplicationRecord
   def words
-    body.split(',').join(' ') # .split('.').join(' ').split(' ').collect(&:downcase)
-        .gsub(/(\.|\,)/, ' ')
-        .split
-        .collect(&:downcase)
+    body.split(',').join(' ')
+      .gsub(/(\.|\,|\?)/, ' ')
+      .gsub(/("|“|”)/, ' ')
+      .split
+      .collect(&:downcase)
   end
 
   def counts
