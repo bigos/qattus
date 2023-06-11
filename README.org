@@ -32,6 +32,9 @@ Trivial Sqlite3
 ** Database initialization
 Trivial Sqlite3
 
+** hosting
+https://www.digitalocean.com/pricing/droplets#basic-droplets
+
 ** How to run the test suite
 No tests yet
 
