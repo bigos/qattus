@@ -12576,10 +12576,15 @@ _Platform_export({'Main':{'init':$author$project$Main$main(
 		function (be) {
 			return A2(
 				$elm$json$Json$Decode$andThen,
-				function (a) {
-					return $elm$json$Json$Decode$succeed(
-						{a: a, be: be});
+				function (base_url) {
+					return A2(
+						$elm$json$Json$Decode$andThen,
+						function (a) {
+							return $elm$json$Json$Decode$succeed(
+								{a: a, base_url: base_url, be: be});
+						},
+						A2($elm$json$Json$Decode$field, 'a', $elm$json$Json$Decode$int));
 				},
-				A2($elm$json$Json$Decode$field, 'a', $elm$json$Json$Decode$int));
+				A2($elm$json$Json$Decode$field, 'base_url', $elm$json$Json$Decode$string));
 		},
 		A2($elm$json$Json$Decode$field, 'be', $elm$json$Json$Decode$string)))(0)}});}(this));
