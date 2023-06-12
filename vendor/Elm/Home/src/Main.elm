@@ -34,7 +34,10 @@ init flags =
 
 
 type alias Flags =
-    { a : Int, be : String }
+    { a : Int
+    , be : String
+    , base_url : String
+    }
 
 
 type alias Model =
