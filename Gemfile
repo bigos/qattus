@@ -80,5 +80,9 @@ group :test do
   gem "webdrivers"
 end
 
+group :production do
+  # gem "passenger"
+end
+
 gem "haml-rails", "~> 2.0"
 gem 'rack-cors'
