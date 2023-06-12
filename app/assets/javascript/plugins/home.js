@@ -6256,7 +6256,9 @@ var $elm$http$Http$get = function (r) {
 	return $elm$http$Http$request(
 		{body: $elm$http$Http$emptyBody, expect: r.expect, headers: _List_Nil, method: 'GET', timeout: $elm$core$Maybe$Nothing, tracker: $elm$core$Maybe$Nothing, url: r.url});
 };
-var $author$project$Main$host = 'http://localhost:3000';
+var $author$project$Main$host = function (model) {
+	return model.flags.base_url;
+};
 var $elm$core$Maybe$andThen = F2(
 	function (callback, maybeValue) {
 		if (maybeValue.$ === 'Just') {
@@ -6407,19 +6409,24 @@ var $lukewestby$elm_string_interpolate$String$Interpolate$interpolate = F2(
 			$lukewestby$elm_string_interpolate$String$Interpolate$applyInterpolation(asArray),
 			string);
 	});
-var $author$project$Main$getText = $elm$http$Http$get(
-	{
-		expect: $elm$http$Http$expectString($author$project$Main$GotTextString),
-		url: A2(
-			$lukewestby$elm_string_interpolate$String$Interpolate$interpolate,
-			'{0}/texts.json',
-			_List_fromArray(
-				[$author$project$Main$host]))
-	});
+var $author$project$Main$getText = function (model) {
+	return $elm$http$Http$get(
+		{
+			expect: $elm$http$Http$expectString($author$project$Main$GotTextString),
+			url: A2(
+				$lukewestby$elm_string_interpolate$String$Interpolate$interpolate,
+				'{0}/texts.json',
+				_List_fromArray(
+					[
+						$author$project$Main$host(model)
+					]))
+		});
+};
 var $author$project$Main$init = function (flags) {
+	var premodel = {cnt: 0, flags: flags, result: ''};
 	return _Utils_Tuple2(
-		{cnt: 0, flags: flags, result: ''},
-		$author$project$Main$getText);
+		premodel,
+		$author$project$Main$getText(premodel));
 };
 var $elm$json$Json$Decode$int = _Json_decodeInt;
 var $elm$json$Json$Decode$string = _Json_decodeString;
@@ -6482,7 +6489,7 @@ var $author$project$Main$gotTextDecoder = A3(
 						'id',
 						$elm$json$Json$Decode$int,
 						$elm$json$Json$Decode$succeed($author$project$Main$Text)))))));
-var $author$project$Main$getTextRecord = function () {
+var $author$project$Main$getTextRecord = function (model) {
 	var id = '3';
 	return $elm$http$Http$get(
 		{
@@ -6491,23 +6498,30 @@ var $author$project$Main$getTextRecord = function () {
 				$lukewestby$elm_string_interpolate$String$Interpolate$interpolate,
 				'{0}/texts/{1}.json',
 				_List_fromArray(
-					[$author$project$Main$host, id]))
+					[
+						$author$project$Main$host(model),
+						id
+					]))
 		});
-}();
+};
 var $author$project$Main$GotTextList = function (a) {
 	return {$: 'GotTextList', a: a};
 };
 var $elm$json$Json$Decode$list = _Json_decodeList;
 var $author$project$Main$gotTextsDecoder = $elm$json$Json$Decode$list($author$project$Main$gotTextDecoder);
-var $author$project$Main$getTextsList = $elm$http$Http$get(
-	{
-		expect: A2($elm$http$Http$expectJson, $author$project$Main$GotTextList, $author$project$Main$gotTextsDecoder),
-		url: A2(
-			$lukewestby$elm_string_interpolate$String$Interpolate$interpolate,
-			'{0}/texts.json',
-			_List_fromArray(
-				[$author$project$Main$host]))
-	});
+var $author$project$Main$getTextsList = function (model) {
+	return $elm$http$Http$get(
+		{
+			expect: A2($elm$http$Http$expectJson, $author$project$Main$GotTextList, $author$project$Main$gotTextsDecoder),
+			url: A2(
+				$lukewestby$elm_string_interpolate$String$Interpolate$interpolate,
+				'{0}/texts.json',
+				_List_fromArray(
+					[
+						$author$project$Main$host(model)
+					]))
+		});
+};
 var $elm$core$Debug$log = _Debug_log;
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
@@ -6520,13 +6534,13 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{cnt: model.cnt + 1, result: ''}),
-					$author$project$Main$getTextRecord);
+					$author$project$Main$getTextRecord(model));
 			case 'Decrement':
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{cnt: model.cnt - 1}),
-					$author$project$Main$getTextsList);
+					$author$project$Main$getTextsList(model));
 			case 'GotTextRecord':
 				var result = msg.a;
 				if (result.$ === 'Ok') {

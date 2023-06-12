@@ -25,11 +25,15 @@ main =
 
 init : Flags -> ( Model, Cmd Msg )
 init flags =
-    ( { flags = flags
-      , cnt = 0
-      , result = ""
-      }
-    , getText
+    let
+        premodel =
+            { flags = flags
+            , cnt = 0
+            , result = ""
+            }
+    in
+    ( premodel
+    , getText premodel
     )
 
 
@@ -73,11 +77,11 @@ update msg model =
                 | cnt = model.cnt + 1
                 , result = ""
               }
-            , getTextRecord
+            , getTextRecord model
             )
 
         Decrement ->
-            ( { model | cnt = model.cnt - 1 }, getTextsList )
+            ( { model | cnt = model.cnt - 1 }, getTextsList model )
 
         GotTextRecord result ->
             case result of
@@ -106,36 +110,36 @@ update msg model =
                     ( { model | result = "got string of text error" ++ Debug.toString err }, Cmd.none )
 
 
-host : String
-host =
-    "http://localhost:3000"
+host : Model -> String
+host model =
+    model.flags.base_url
 
 
-getTextsList : Cmd Msg
-getTextsList =
+getTextsList : Model -> Cmd Msg
+getTextsList model =
     Http.get
         { url =
-            interpolate "{0}/texts.json" [ host ]
+            interpolate "{0}/texts.json" [ host model ]
         , expect = Http.expectJson GotTextList gotTextsDecoder
         }
 
 
-getTextRecord : Cmd Msg
-getTextRecord =
+getTextRecord : Model -> Cmd Msg
+getTextRecord model =
     let
         id =
             "3"
     in
     Http.get
-        { url = interpolate "{0}/texts/{1}.json" [ host, id ]
+        { url = interpolate "{0}/texts/{1}.json" [ host model, id ]
         , expect = Http.expectJson GotTextRecord gotTextDecoder
         }
 
 
-getText : Cmd Msg
-getText =
+getText : Model -> Cmd Msg
+getText model =
     Http.get
-        { url = interpolate "{0}/texts.json" [ host ]
+        { url = interpolate "{0}/texts.json" [ host model ]
         , expect = Http.expectString GotTextString
         }
 
