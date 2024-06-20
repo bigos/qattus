@@ -1,10 +1,10 @@
-
 %h1 Home#page
 %p Find me in app/views/home/page.html.haml
 
-%div#elm
-  %span.elm-error
-    = 'Please reload if you can read it'
+%div{data: {'turbo': 'false'}}
+  %div#elm
+    %span.elm-error
+      = 'Please reload if you can read it'
 
 = javascript_include_tag 'plugins/home', "data-turbo-eval": "false"
 - flag_data = {a: 1, be: 'two', base_url: request.base_url}
