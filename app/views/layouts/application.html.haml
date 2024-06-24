@@ -10,7 +10,7 @@
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
   %body
     %div.nav
-      = link_to "Home", home_page_path
+      = link_to "Home", home_page_path, data: {turbo: 'false'}
       \|
       = link_to "Texts", texts_path
 
@@ -19,6 +19,6 @@
 
     %hr
     %pre
-      = request.base_url 
+      = request.base_url
       ,
       = Rails.env
