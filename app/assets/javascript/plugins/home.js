@@ -12342,11 +12342,6 @@ var $mdgriffith$elm_ui$Element$layoutWith = F3(
 	});
 var $mdgriffith$elm_ui$Element$layout = $mdgriffith$elm_ui$Element$layoutWith(
 	{options: _List_Nil});
-var $mdgriffith$elm_ui$Internal$Model$AlignX = function (a) {
-	return {$: 'AlignX', a: a};
-};
-var $mdgriffith$elm_ui$Internal$Model$Right = {$: 'Right'};
-var $mdgriffith$elm_ui$Element$alignRight = $mdgriffith$elm_ui$Internal$Model$AlignX($mdgriffith$elm_ui$Internal$Model$Right);
 var $mdgriffith$elm_ui$Internal$Model$AlignY = function (a) {
 	return {$: 'AlignY', a: a};
 };
@@ -12379,6 +12374,9 @@ var $mdgriffith$elm_ui$Element$el = F2(
 				_List_fromArray(
 					[child])));
 	});
+var $mdgriffith$elm_ui$Element$explain = function (_v0) {
+	return $mdgriffith$elm_ui$Internal$Model$htmlClass('explain');
+};
 var $mdgriffith$elm_ui$Internal$Model$Fill = function (a) {
 	return {$: 'Fill', a: a};
 };
@@ -12495,6 +12493,7 @@ var $mdgriffith$elm_ui$Element$spacing = function (x) {
 			x,
 			x));
 };
+var $elm$core$Debug$todo = _Debug_todo;
 var $author$project$Main$myRowOfStuff = A2(
 	$mdgriffith$elm_ui$Element$row,
 	_List_fromArray(
@@ -12505,13 +12504,21 @@ var $author$project$Main$myRowOfStuff = A2(
 		]),
 	_List_fromArray(
 		[
-			$author$project$Main$myElement('one'),
-			$author$project$Main$myElement('two'),
+			$author$project$Main$myElement('on1'),
+			$author$project$Main$myElement('2two'),
 			A2(
 			$mdgriffith$elm_ui$Element$el,
 			_List_fromArray(
-				[$mdgriffith$elm_ui$Element$alignRight]),
-			$author$project$Main$myElement('three'))
+				[
+					$mdgriffith$elm_ui$Element$explain(
+					_Debug_todo(
+						'Main',
+						{
+							start: {line: 181, column: 32},
+							end: {line: 181, column: 42}
+						}))
+				]),
+			$author$project$Main$myElement('three3'))
 		]));
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 'Normal', a: a};

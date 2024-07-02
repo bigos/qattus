@@ -176,9 +176,9 @@ view model =
 myRowOfStuff : Element msg
 myRowOfStuff =
     row [ width fill, centerY, spacing 30 ]
-        [ myElement "one"
-        , myElement "two"
-        , el [ alignRight ] (myElement "three")
+        [ myElement "on1"
+        , myElement "2two"
+        , el [ Element.explain Debug.todo ] (myElement "three3")
         ]
 
 
